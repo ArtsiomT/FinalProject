@@ -14,6 +14,11 @@
         <tag-class>by.epam.terehovich.internetprovider.tags.InfoTimeTag</tag-class>
         <body-content>empty</body-content>
     </tag>
+    <tag>
+        <name>date-chooser</name>
+        <tag-class>by.epam.terehovich.internetprovider.tags.DateChooseTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
 
     <!-- Invoke 'Generate' action to add tags or functions -->
 

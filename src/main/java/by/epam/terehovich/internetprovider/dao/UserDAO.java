@@ -92,7 +92,7 @@ public class UserDAO extends AbstractDAO<Integer, User> {
             ps.setString(7, entity.getLastname());
             ps.setString(8, entity.getAddress());
             ps.setString(9, entity.getCity());
-            ps.setDate(10, Date.valueOf(String.valueOf(entity.getBirth())));
+            ps.setDate(10, new Date(entity.getBirth().getTimeInMillis()));
             ps.executeUpdate();
             System.out.println("execute update");
         } catch (SQLException e) {

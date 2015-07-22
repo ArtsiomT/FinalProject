@@ -13,7 +13,7 @@
 <body>
     <form name="localeForm" action="/control" method="post">
         <input name="command" type="hidden" value="locale">
-        <select name="locale" onselect="submit">
+        <select name="locale" onselect="submit()">
             <option value="EN" ${lang != 'ru_RU' ? 'selected' : ''}>EN</option>
             <option value="RU" ${lang == 'ru_RU' ? 'selected' : ''}>RU</option>
         </select>

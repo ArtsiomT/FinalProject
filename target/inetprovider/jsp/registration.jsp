@@ -5,8 +5,9 @@
   Time: 22.27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="customtags" prefix="ctg"%>
 <fmt:setLocale value="${sessionScope.lang}" scope="session"/>
 <fmt:setBundle basename="localization"/>
 <html>
@@ -89,6 +90,14 @@
       </td>
       <td>
         <input name="city" type="text" size="15" id="city">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="city"><fmt:message key="page.registration.city"/></label>
+      </td>
+      <td>
+        <ctg:date-chooser/>
       </td>
     </tr>
     <tr>

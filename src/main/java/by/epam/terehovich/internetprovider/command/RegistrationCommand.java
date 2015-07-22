@@ -15,7 +15,7 @@ import java.util.GregorianCalendar;
 public class RegistrationCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
-        String page = ConfigurationManager.getProperty("path.page.login");
+        String page = ConfigurationManager.getProperty("path.page.index");
         User user = buildUser(request);
         if(RegistrationLogic.checkRegistration(user)){
             return page;
@@ -37,7 +37,10 @@ public class RegistrationCommand implements ActionCommand {
         String secondname = request.getParameter("secondname");
         String address = request.getParameter("address");
         String city = request.getParameter("city");
-        GregorianCalendar birth = new GregorianCalendar(2015, 6, 22);
+        int year = Integer.parseInt(request.getParameter("year"));
+        int month = Integer.parseInt(request.getParameter("month"));
+        int day = Integer.parseInt(request.getParameter("day"));
+        GregorianCalendar birth = new GregorianCalendar(year, month, day);
 
         return new User(id, login, password, email, role, firstname, secondname, lastname,
                 address, city, birth);
