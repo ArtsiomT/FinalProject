@@ -15,7 +15,7 @@
     <title><fmt:message key="page.login.title"/> </title>
 </head>
 <body>
-  <c:import url="patterns/login-form.jsp"/>
+  <c:import url="../patterns/login-form.jsp"/>
   <p class="error">
   <br/>
   ${errorLoginPassMessage}

@@ -7,7 +7,6 @@ import java.util.GregorianCalendar;
  */
 public class User extends Entity {
     private int role;
-    private int cabinet;
     private String login;
     private String password;
     private String email;
@@ -17,6 +16,7 @@ public class User extends Entity {
     private String address;
     private String city;
     private GregorianCalendar birth;
+    private Cabinet cabinet;
 
     public User(int id, String login, String password, String email, int role, String firstname, String secondname,
                 String lastname, String address, String city, GregorianCalendar birth) {
@@ -41,11 +41,11 @@ public class User extends Entity {
         this.role = role;
     }
 
-    public int getCabinet() {
+    public Cabinet getCabinet() {
         return cabinet;
     }
 
-    public void setCabinet(int cabinet) {
+    public void setCabinet(Cabinet cabinet) {
         this.cabinet = cabinet;
     }
 

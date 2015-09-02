@@ -25,6 +25,16 @@ public enum CommandEnum {
         {
             this.command = new RegistrationCommand();
         }
+    },
+    CHANGEPASS{
+        {
+            this.command = new ChangePasswordCommand();
+        }
+    },
+    CABINET {
+        {
+            this.command = new CabinetCommand();
+        }
     };
 
     ActionCommand command;

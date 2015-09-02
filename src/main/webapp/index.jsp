@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="customtags" prefix="ctd"%>
 
-<fmt:setLocale value="${not empty sessionScope.lang ? sessionScope.lang : 'en_US'}" scope="session"/>
+<fmt:setLocale value="${sessionScope.lang}" scope="session"/>
 <fmt:setBundle basename="localization"/>
 <html>
 <head>
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/loginstyle.css" type="text/css">
 </head>
 <body>
-    <form name="localeForm" action="/control" method="post">
+    <form name="localeForm" a n="/control" method="post">
         <input name="command" type="hidden" value="locale">
         <select name="locale" onselect="submit()">
             <option value="EN" ${lang != 'ru_RU' ? 'selected' : ''}>EN</option>

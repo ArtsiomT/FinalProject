@@ -10,7 +10,7 @@ public class LoginLogic {
 
     public static boolean checkLogin(String enterLogin, String enterPassword){
         UserDAO userDAO = new UserDAO();
-        User user = userDAO.findByLogin(enterLogin);
+        User user = userDAO.findByKey(enterLogin);
         if (user!= null){
             return (user.getPassword().equals(enterPassword));
         } else {

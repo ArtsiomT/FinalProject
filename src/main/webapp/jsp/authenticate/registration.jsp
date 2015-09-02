@@ -37,18 +37,18 @@
     </tr>
     <tr>
       <td>
-        <label for="email"><fmt:message key="page.registration.email"/></label>
-      </td>
-      <td>
-        <input name="email" type="email" size="15" id="email">
-      </td>
-    </tr>
-    <tr>
-      <td>
         <label for="password-again"> <fmt:message key="page.registration.password_again"/></label>
       </td>
       <td>
         <input name="password_again" type="password" size="15" id="password-again">
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label for="email"><fmt:message key="page.registration.email"/></label>
+      </td>
+      <td>
+        <input name="email" type="email" size="15" id="email">
       </td>
     </tr>
     <tr>
@@ -94,7 +94,7 @@
     </tr>
     <tr>
       <td>
-        <label for="city"><fmt:message key="page.registration.city"/></label>
+        <label for="date"><fmt:message key="page.registration.birth"/></label>
       </td>
       <td>
         <ctg:date-chooser/>

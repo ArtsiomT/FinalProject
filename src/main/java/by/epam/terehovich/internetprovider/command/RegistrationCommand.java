@@ -1,12 +1,12 @@
 package by.epam.terehovich.internetprovider.command;
 
+import by.epam.terehovich.internetprovider.content.RequestContent;
 import by.epam.terehovich.internetprovider.entity.User;
 import by.epam.terehovich.internetprovider.logic.RegistrationLogic;
 import by.epam.terehovich.internetprovider.resource.ConfigurationManager;
 import by.epam.terehovich.internetprovider.resource.MessageManager;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
  */
 public class RegistrationCommand implements ActionCommand {
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(RequestContent request) {
         String page = ConfigurationManager.getProperty("path.page.index");
         User user = buildUser(request);
         if(RegistrationLogic.checkRegistration(user)){
@@ -26,7 +26,7 @@ public class RegistrationCommand implements ActionCommand {
         return page;
     }
 
-    private User buildUser(HttpServletRequest request){
+    private User buildUser(RequestContent request){
         int id = 0;
         String login = request.getParameter("login");
         String password = request.getParameter("password");

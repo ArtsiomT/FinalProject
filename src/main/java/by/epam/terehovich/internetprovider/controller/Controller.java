@@ -2,6 +2,7 @@ package by.epam.terehovich.internetprovider.controller;
 
 import by.epam.terehovich.internetprovider.command.ActionCommand;
 import by.epam.terehovich.internetprovider.command.factory.ActionFactory;
+import by.epam.terehovich.internetprovider.content.RequestContent;
 import by.epam.terehovich.internetprovider.resource.ConfigurationManager;
 import by.epam.terehovich.internetprovider.resource.MessageManager;
 import org.apache.log4j.Logger;
@@ -31,37 +32,23 @@ public class Controller extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = null;
+        String page;
         ActionFactory client = new ActionFactory();
-        ActionCommand command = client.defineCommand(request);
-        page = command.execute(request);
+        RequestContent requestContent = new RequestContent(request);
+        ActionCommand command = client.defineCommand(requestContent);
+        page = command.execute(requestContent);
 
         if(page != null){
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+            requestContent.updateRequest(request);
             dispatcher.forward(request, response);
         } else {
             page = ConfigurationManager.getProperty("path.page.index");
-            request.getSession().setAttribute("nullpage", MessageManager.getProperty("message.nullpage"));
+            requestContent.setSessionAttribute("nullpage", MessageManager.getProperty("message.nullpage"));
+            requestContent.updateRequest(request);
             response.sendRedirect(request.getContextPath() + page);
         }
     }
 
-    private void setLocale(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String locale = request.getParameter("locale");
-
-        switch (locale){
-            case "EN":
-                Locale.setDefault(new Locale("en", "EN"));
-                request.setAttribute("lang", "en_US");
-                LOGGER.info("Locale set to EN");
-                break;
-            case "RU":
-                Locale.setDefault(new Locale("ru", "RU"));
-                request.setAttribute("lang", "ru_RU");
-                LOGGER.info("Locale set to RU");
-                break;
-        }
-        request.getRequestDispatcher("index.jsp").forward(request, response);
-    }
 
 }

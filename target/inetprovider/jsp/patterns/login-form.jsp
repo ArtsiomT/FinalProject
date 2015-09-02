@@ -25,7 +25,7 @@
         <input name="submit" type="submit" value=<fmt:message key="button.login"/>>
       </td>
       <td>
-        <a href="${pageContext.request.contextPath}/jsp/registration.jsp"><fmt:message key="page.registration.title"/> </a>
+        <a href="${pageContext.request.contextPath}/jsp/authenticate/registration.jsp"><fmt:message key="page.registration.title"/> </a>
       </td>
     </tr>
   </table>

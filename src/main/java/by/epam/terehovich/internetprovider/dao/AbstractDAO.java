@@ -18,7 +18,7 @@ public abstract class AbstractDAO<K, T extends Entity> {
     }
     public abstract List<T> findAll();
     public abstract T findById(K id);
-    public abstract T findByLogin(String login);
+    public abstract T findByKey(String key);
     public abstract boolean insertNew(T entity);
     public abstract boolean deleteById(K id);
 }

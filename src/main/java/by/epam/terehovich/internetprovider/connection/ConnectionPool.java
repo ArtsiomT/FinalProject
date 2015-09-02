@@ -1,5 +1,7 @@
 package by.epam.terehovich.internetprovider.connection;
 
+import by.epam.terehovich.internetprovider.exception.PoolException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -55,14 +57,24 @@ public class ConnectionPool {
         return connection;
     }
 
-    public static void closeConnection(Connection connection){
+    public static void closeConnection(Connection connection) throws PoolException {
         if (connection != null){
             try {
                 pool.put(connection);
-                System.out.println("connection closed");
             } catch (InterruptedException e) {
-                System.out.println("error with returning connection");
-                e.printStackTrace();
+                throw new PoolException("Can't return connection to pool");
+            }
+        }
+    }
+
+    public static void closeAll() throws PoolException {
+        for (Connection connection : pool){
+            try {
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                throw new PoolException("Can't close connection" + e);
             }
         }
     }

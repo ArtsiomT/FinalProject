@@ -10,8 +10,8 @@
         <error-code>404</error-code>
         <location>/jsp/error/error.jsp</location>
     </error-page>
-    <error-page>
+    <!--<error-page>
         <exception-type>java.lang.RuntimeException</exception-type>
         <location>/jsp/error/error.jsp</location>
-    </error-page>
+    </error-page>-->
 </web-app>

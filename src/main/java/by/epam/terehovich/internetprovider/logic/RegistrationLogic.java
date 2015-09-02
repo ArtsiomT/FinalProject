@@ -13,7 +13,7 @@ public class RegistrationLogic {
     public static boolean checkRegistration(User user){
         boolean result = false;
         UserDAO userDAO = new UserDAO();
-        User getUser = userDAO.findByLogin(user.getLogin());
+        User getUser = userDAO.findByKey(user.getLogin());
         if (getUser == null){
             userDAO = new UserDAO();
             System.out.println("Adding new user");

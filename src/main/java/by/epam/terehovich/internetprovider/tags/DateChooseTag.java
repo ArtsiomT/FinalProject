@@ -17,7 +17,7 @@ public class DateChooseTag extends TagSupport {
         JspWriter writer = pageContext.getOut();
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.getDefault());
         try {
-            writer.write("<select name=\"year\">");
+            writer.write("<select name=\"year\" id=\"date\">");
             for (int i = 1900; i<=calendar.get(Calendar.YEAR); i++){
                 if(i==calendar.get(Calendar.YEAR)){
                     writer.write("<option value=\""+i+"\" selected>"+i+"</option>");

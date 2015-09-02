@@ -2,6 +2,7 @@ package by.epam.terehovich.internetprovider.dao;
 
 import by.epam.terehovich.internetprovider.connection.ConnectionPool;
 import by.epam.terehovich.internetprovider.entity.User;
+import by.epam.terehovich.internetprovider.exception.PoolException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,13 +18,15 @@ public class UserDAO extends AbstractDAO<Integer, User> {
     private final static String INSERT_NEW_USER = "INSERT INTO internet_provider.account (login, password, email, id_role, firstname, secondname, lastname, address, city, datebirth) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final static String SELECT_USER_BY_LOGIN = "SELECT * FROM `internet_provider`.`account` WHERE login = ?";
     private final static String SELECT_ALL = "SELECT * FROM `internet_provider`.`account`";
+    private final static String UPDATE_PASS = "UPDATE account SET password= ? WHERE id_account = ?";
 
 
     @Override
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
+        Statement st = null;
         try {
-            Statement st = connection.createStatement();
+            st = connection.createStatement();
             ResultSet rs = st.executeQuery(SELECT_ALL);
             while (rs.next()){
                 GregorianCalendar cal = new GregorianCalendar();
@@ -36,7 +39,18 @@ public class UserDAO extends AbstractDAO<Integer, User> {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            ConnectionPool.closeConnection(connection);
+            if(st != null){
+                try {
+                    st.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                ConnectionPool.closeConnection(connection);
+            } catch (PoolException e) {
+                e.printStackTrace();
+            }
         }
         return users;
     }
@@ -47,12 +61,12 @@ public class UserDAO extends AbstractDAO<Integer, User> {
     }
 
     @Override
-    public User findByLogin(String login) {
+    public User findByKey(String key) {
         User user = null;
         PreparedStatement ps = null;
         try {
             ps = connection.prepareStatement(SELECT_USER_BY_LOGIN);
-            ps.setString(1, login);
+            ps.setString(1, key);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 GregorianCalendar cal = new GregorianCalendar();
@@ -73,7 +87,11 @@ public class UserDAO extends AbstractDAO<Integer, User> {
                     e.printStackTrace();
                 }
             }
-            ConnectionPool.closeConnection(connection);
+            try {
+                ConnectionPool.closeConnection(connection);
+            } catch (PoolException e) {
+                e.printStackTrace();
+            }
         }
         return user;
     }
@@ -96,19 +114,22 @@ public class UserDAO extends AbstractDAO<Integer, User> {
             ps.executeUpdate();
             System.out.println("execute update");
         } catch (SQLException e) {
-            System.out.println("Sql exception with inserting new user");
+            System.out.println("Sql exception with inserting new user" + e);
             return false;
         } finally {
             if(ps != null){
                 try {
                     ps.close();
-                    System.out.println("ps.close() insert");
                 } catch (SQLException e) {
                     System.out.println("ps.close exception insert");
                     e.printStackTrace();
                 }
             }
-            ConnectionPool.closeConnection(connection);
+            try {
+                ConnectionPool.closeConnection(connection);
+            } catch (PoolException e) {
+                e.printStackTrace();
+            }
         }
         return true;
     }
@@ -118,5 +139,30 @@ public class UserDAO extends AbstractDAO<Integer, User> {
         return false;
     }
 
-
+    public boolean updatePassword(int id, String password){
+        PreparedStatement ps = null;
+        try {
+            ps = this.connection.prepareStatement(UPDATE_PASS);
+            ps.setString(1, password);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if(ps != null){
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println("ps.close exception insert");
+                    e.printStackTrace();
+                }
+            }
+            try {
+                ConnectionPool.closeConnection(connection);
+            } catch (PoolException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
 }

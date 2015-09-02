@@ -20,6 +20,12 @@
         <body-content>empty</body-content>
     </tag>
 
+    <tag>
+        <name>user-table</name>
+        <tag-class>by.epam.terehovich.internetprovider.tags.UserTableTag</tag-class>
+        <body-content>empty</body-content>
+    </tag>
+
     <!-- Invoke 'Generate' action to add tags or functions -->
 
 </taglib>
